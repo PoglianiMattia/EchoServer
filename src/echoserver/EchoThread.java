@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 public class EchoThread extends Thread {
 
     private Socket s;
+    private boolean maiuscolo = false;
 
     public EchoThread(Socket s) {
 
@@ -19,13 +20,34 @@ public class EchoThread extends Thread {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             PrintWriter out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()), true);
+            String stringa;
             
             while (true) {
-                out.println(in.readLine());
+                stringa = in.readLine();
+
+                switch(stringa){
+                    case "fine":
+                        return;
+                    case "maiuscole: on" : 
+                        maiuscolo = true;
+                        //out.println("maiuscole on ricevuto!");
+                        out.println();
+                        break;
+                    case "maiuscole: off" :
+                        maiuscolo = false;
+                        //out.println("maiuscole off ricevuto!");
+                        out.println();
+                        break;
+                    default:
+                        if(maiuscolo)
+                            out.println(stringa.toUpperCase());
+                        else
+                            out.println(stringa);
+                        break;
+                }
+                
             }
-        } catch (IOException ex) {
-            Logger.getLogger(EchoThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (IOException ex) {        }
         
         
     }
