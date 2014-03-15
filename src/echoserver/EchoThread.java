@@ -30,13 +30,9 @@ public class EchoThread extends Thread {
                         return;
                     case "maiuscole: on" : 
                         maiuscolo = true;
-                        //out.println("maiuscole on ricevuto!");
-                        out.println();
                         break;
                     case "maiuscole: off" :
                         maiuscolo = false;
-                        //out.println("maiuscole off ricevuto!");
-                        out.println();
                         break;
                     default:
                         if(maiuscolo)
